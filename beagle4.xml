@@ -1,0 +1,68 @@
+<tool id="Beagle" name="Beagle4.0" >
+  <description>Beagle version 4.0 performs genotype calling, genotype phasing, imputation of ungenotyped markers, and identity-by-descent segment detection.</description>
+  <requirements>
+    <requirement type="package" version="4.0">Beagle</requirement>
+  </requirements>
+  <command interpreter="python">
+
+    #if int($useref.refSelect)==0
+      beagle4.py --jar $__tool_directory__/beagle.r1399.jar --gtgl $gtORgl.gtORglSelect --gfile $gtORgl.gtgl --phase-its $phaseits --impute-its $imputeits  --out $output
+    #else
+      beagle4.py --jar $__tool_directory__/beagle.r1399.jar --gtgl $gtORgl.gtORglSelect --gfile $gtORgl.gtgl --ref $useref.ref --phase-its $phaseits --impute-its $imputeits --out $output
+    #end if
+
+
+  </command>
+
+<inputs>
+
+<conditional name="useref">
+
+    <param name="refSelect" type="select" label="Select to use a reference or to estimate phasing">
+      <option value="1" selected="true">Reference</option>
+      <option value="0" >Estimate</option>
+    </param>
+
+    <when value="1">
+      <param format="vcf" name="ref" type="data" label="Reference file" help="ref=[file] specifies a reference VCF file containing additional samples and phased genotypes for each marker. See also the impute parameter." />
+    </when>
+</conditional>
+
+<conditional name="gtORgl">
+  <param name="gtORglSelect" type="select" label="Select genotype or genotype likelihood input file" help="Either file option requires VCF format">
+    <option value="gt" selected="true">Genotype</option>
+    <option value="gl">Genotype Likelihood</option>
+  </param>
+  <when value="gt">
+    <param format="vcf" name="gtgl" type="data" label="GT file" help="gt=[file] specifies a VCF file containing a GT (genotype) format field for each marker."/>
+  </when>
+  <when value="gl">
+    <param format="vcf" name="gtgl" type="data" label="GL file" help="gl=[file] specifies a VCF file containing a GL or PL (genotype likelihood) format field for each marker. If both GL and PL format fields are present for a sample, the GL format will be used. See also the maxlr parameter." />
+  </when>
+</conditional>
+
+  <param name="imputeits" type="integer" size="3" value="5" label="Impute-ITS (iterations for impute step: default=5)" help="" />
+  <param name="phaseits" type="integer" size="3" value="5" label="Phase-ITS (iterations for phase step: default=5)" />
+
+</inputs>
+
+<outputs>
+  <data format="vcf" name="output" label="Output from Beagle" />
+
+</outputs>
+
+
+<help>
+
+</help>
+
+
+
+</tool>
+
+
+
+
+
+
+
