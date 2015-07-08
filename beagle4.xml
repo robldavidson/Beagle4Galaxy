@@ -54,6 +54,19 @@
 
 <help>
 
+For a full guide, go to the Beagle4.0 documentation here: http://faculty.washington.edu/browning/beagle/beagle.03Mar15.pdf
+
+This wrapper allows for the selection of either a Genotype (gt) file, a Genotype Likelihood (gl) file or a Genotype (gt) plus Reference file as per the example usage here: http://faculty.washington.edu/browning/beagle/run.beagle.r1399.example
+
+The only parameters currently exposed by this wrapper are impute-its and phase-its which both have default of 5. Please feel free to request more parameters to be made available by contacting bobbledavidson @ github.
+
+Test data is available via the GitHub page: https://github.com/bobbledavidson/Beagle4Galaxy
+
+Important note:
+The creator of the Galaxy wrapper is not the same as the creator of the Beagle4.0 tool. All credit for the tool's abilities should be acknowledged using the following citation:
+
+S R Browning and B L Browning (2007) Rapid and accurate haplotype phasing and missing data inference for whole genome association studies by use of localized haplotype clustering. Am J Hum Genet 81:1084-97. doi:10.1086/521987
+
 </help>
 
 
