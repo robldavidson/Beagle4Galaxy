@@ -3,6 +3,7 @@ import optparse
 import tempfile
 import shutil
 from subprocess import call
+import gzip 
 
 def main():
   
@@ -34,7 +35,14 @@ def main():
     	call(['java', '-Xmx2g', '-jar', options.jarfile, options.gtgl+'='+options.gfile,'phase-its='+options.phits, 'impute-its='+options.impits , 'out='+outdir+'/'+outprefix ])
    
 
-    shutil.move(outdir+'/'+outprefix+'.vcf.gz',options.outfile)
+    #shutil.move(outdir+'/'+outprefix+'.vcf.gz',options.outfile)
+    #shutil.rmtree(outdir)
+    with gzip.open(outdir+os.sep+outprefix+'.vcf.gz','rb') as gzinfile:
+        with open(options.outfile,'w') as vcfoutfile:
+            for line in gzinfile:
+                vcfoutfile.write(line)
+    
+    
     shutil.rmtree(outdir)
 
 
